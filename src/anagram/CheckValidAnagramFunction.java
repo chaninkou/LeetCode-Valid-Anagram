@@ -1,6 +1,11 @@
 package anagram;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class CheckValidAnagramFunction {
+	// Faster way to do it, since second loop will return false if its negative right away
     public boolean isAnagram(String s, String t) {
         // If length is not the same, false
         if(s.length() != t.length()){
@@ -27,6 +32,56 @@ public class CheckValidAnagramFunction {
         
         // Return true since we know they are anagram
         return true;
+    }
+    
+    // This is the fastest way to do it, but take up more memory 
+    public boolean isAnagram2(String s, String t){
+    	if(s.length() != t.length()){
+    		return false;
+    	}
+    	
+    	int[] map1 = new int[26];
+    	int[] map2 = new int[26];
+    	
+    	for(char c : s.toCharArray()){
+    		map1[c - 'a']++;
+    	}
+    	
+    	for(char c : t.toCharArray()){
+    		map2[c - 'a']++;
+    	}
+    	
+    	for(int i = 0; i < 26; i++){
+    		if(map1[i] != map2[i]){
+    			return false;
+    		}
+    	}
+    	
+    	return true;
+    }
+    
+    public boolean isAnagram3(String s, String t){
+    	if(s.length() != t.length()){
+    		return false;
+    	}
+    	
+    	Map<Character, Integer> map = new HashMap<>();
+    	
+    	for(int i = 0; i < s.length(); i++){
+    		map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+    		map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) - 1);
+    	}
+    	
+    	Set<Map.Entry<Character, Integer>> entry = map.entrySet();
+    	
+    	for(Map.Entry<Character, Integer> c : entry){
+    		
+    		if(c.getValue() < 0){
+    			return false;
+    		}
+    	}
+	
+    	return true;
     }
     
     // Second way of doing it, seems slower than the first method
