@@ -51,6 +51,7 @@ public class CheckValidAnagramFunction {
     		map2[c - 'a']++;
     	}
     	
+    	// Easy approach, using two array to store the count and compare them
     	for(int i = 0; i < 26; i++){
     		if(map1[i] != map2[i]){
     			return false;
@@ -67,19 +68,29 @@ public class CheckValidAnagramFunction {
     	
     	Map<Character, Integer> map = new HashMap<>();
     	
+    	// Same thing if you just use another loop to do it if we do it separated     
     	for(int i = 0; i < s.length(); i++){
+    		// add
     		map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+    		
+    		// delete
     		map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) - 1);
     	}
     	
     	Set<Map.Entry<Character, Integer>> entry = map.entrySet();
     	
     	for(Map.Entry<Character, Integer> c : entry){
-    		
+    		// whichever one is negative, return false
     		if(c.getValue() < 0){
     			return false;
     		}
     	}
+    	
+//    	for(char w : map.keySet()){
+//    		if(map.get(w) < 0){
+//    			return false;
+//    		}
+//    	}
 	
     	return true;
     }
