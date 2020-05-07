@@ -7,7 +7,7 @@ import java.util.Set;
 public class CheckValidAnagramFunction {
 	// Faster way to do it, since second loop will return false if its negative right away
     public boolean isAnagram(String s, String t) {
-        // If length is not the same, false
+        // Once length not same, return false
         if(s.length() != t.length()){
             return false;
         }
@@ -19,7 +19,7 @@ public class CheckValidAnagramFunction {
         for(char letter : s.toCharArray()){
             // 'a' - 'a' = 0, 'b' - 'a' = 1
         	// Unique way to keep count
-            abc[letter - 'a'] = abc[letter - 'a'] + 1; 
+            abc[letter - 'a'] += 1; 
         }
         
         // Checking if the second String is equal to the first String
@@ -30,7 +30,7 @@ public class CheckValidAnagramFunction {
             }
         }
         
-        // Return true since we know they are anagram
+        // Return true since we know they are anagram(same)
         return true;
     }
     
